@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TheWStore | Smart Affiliate Finds</title>
+  <meta name="description" content="TheWStore helps Pinterest shoppers discover trending tech accessories, smart gadgets, home essentials, and AliExpress affiliate deals." />
+
+  <!-- Favicon / browser tab logo -->
+  <link rel="icon" type="image/png" href="logo-icon.png" />
+
+  <style>
+    :root {
+      --bg: #06111f;
+      --bg-2: #0a1f3f;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-strong: rgba(255, 255, 255, 0.13);
+      --white: #ffffff;
+      --text: #eaf3ff;
+      --muted: #a9bbd6;
+      --blue: #1677ff;
+      --cyan: #20d7ff;
+      --navy: #04162f;
+      --soft: #eff7ff;
+      --border: rgba(255, 255, 255, 0.14);
+      --shadow: 0 30px 90px rgba(0, 119, 255, 0.22);
+      --radius: 24px;
+      --success: #21d07a;
+      --danger: #ff4d6d;
+      --gold: #ffd166;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(32, 215, 255, 0.18), transparent 34%),
+        radial-gradient(circle at 85% 0%, rgba(22, 119, 255, 0.26), transparent 35%),
+        linear-gradient(180deg, #06111f 0%, #07162b 46%, #f4f9ff 46%, #ffffff 100%);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    .top-strip {
+      background: linear-gradient(90deg, var(--blue), var(--cyan), var(--blue));
+      color: white;
+      text-align: center;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(6, 17, 31, 0.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 190px;
+    }
+
+    .brand img {
+      width: 190px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 22px rgba(32, 215, 255, .18));
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+      transition: .25s;
+    }
+
+    nav a:hover {
+      color: var(--cyan);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: none;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: .25s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: white;
+      box-shadow: 0 16px 35px rgba(22, 119, 255, .3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 45px rgba(22, 119, 255, .42);
+    }
+
+    .btn-soft {
+      background: rgba(255,255,255,.10);
+      border: 1px solid var(--border);
+      color: white;
+    }
+
+    .btn-soft:hover {
+      background: rgba(255,255,255,.18);
+    }
+
+    .btn-dark {
+      background: var(--navy);
+      color: white;
+    }
+
+    .btn-dark:hover {
+      background: var(--blue);
+    }
+
+    .menu-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.10);
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .hero {
+      position: relative;
+      padding: 82px 0 110px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 15px;
+      border-radius: 999px;
+      background: rgba(32, 215, 255, 0.12);
+      border: 1px solid rgba(32, 215, 255, 0.28);
+      color: #dffaff;
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: .98;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--cyan), var(--blue), #7db7ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 650px;
+      font-size: 18px;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 13px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 650px;
+    }
+
+    .trust-pill {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .trust-pill strong {
+      display: block;
+      color: white;
+      font-size: 18px;
+      margin-bottom: 2px;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 520px;
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 70% 20%, rgba(32, 215, 255, .36), transparent 22%),
+        linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 28px;
+    }
+
+    .hero-logo-card {
+      background: rgba(255,255,255,.96);
+      border-radius: 28px;
+      padding: 18px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.22);
+      margin-bottom: 20px;
+    }
+
+    .hero-logo-card img {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+      border-radius: 16px;
+    }
+
+    .phone-mockup {
+      width: 240px;
+      height: 380px;
+      margin: 15px auto 0;
+      border-radius: 34px;
+      background: linear-gradient(160deg, #07142a, #0a54ff);
+      border: 8px solid rgba(255,255,255,.16);
+      box-shadow: 0 35px 80px rgba(0,0,0,.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phone-mockup:before {
+      content: "";
+      position: absolute;
+      width: 84px;
+      height: 10px;
+      background: rgba(255,255,255,.18);
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 99px;
+    }
+
+    .phone-screen {
+      position: absolute;
+      inset: 48px 16px 18px;
+      border-radius: 25px;
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(235,247,255,.95));
+      padding: 18px;
+      color: var(--navy);
+    }
+
+    .pin-card-small {
+      padding: 12px;
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 12px 30px rgba(0,0,0,.12);
+      margin-bottom: 12px;
+    }
+
+    .pin-card-small .img {
+      height: 84px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 44px;
+      background: linear-gradient(135deg, #eaf6ff, #d6f5ff);
+      margin-bottom: 8px;
+    }
+
+    .pin-card-small strong {
+      font-size: 14px;
+      display: block;
+    }
+
+    .floating-chip {
+      position: absolute;
+      padding: 13px 17px;
+      background: rgba(255,255,255,.93);
+      color: var(--navy);
+      border-radius: 18px;
+      font-weight: 900;
+      box-shadow: 0 18px 45px rgba(0,0,0,.18);
+      z-index: 2;
+    }
+
+    .chip-1 { left: 22px; bottom: 90px; }
+    .chip-2 { right: 18px; top: 180px; }
+    .chip-3 { right: 38px; bottom: 38px; }
+
+    .section-light {
+      color: var(--navy);
+      padding: 82px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      max-width: 750px;
+      margin: 0 auto 40px;
+    }
+
+    .section-title .mini {
+      color: var(--blue);
+      font-weight: 1000;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(29px, 4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .section-title p {
+      color: #637089;
+      font-size: 17px;
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .how-card {
+      background: white;
+      border: 1px solid #dceaff;
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 18px 55px rgba(6, 22, 47, .08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .how-card:before {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(22,119,255,.16), rgba(32,215,255,.16));
+      right: -30px;
+      top: -30px;
+    }
+
+    .step-num {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: white;
+      font-weight: 1000;
+      margin-bottom: 18px;
+    }
+
+    .how-card h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+
+    .how-card p {
+      color: #637089;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      gap: 14px;
+      background: white;
+      border: 1px solid #dceaff;
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 18px 55px rgba(6, 22, 47, .08);
+      margin-bottom: 25px;
+    }
+
+    .toolbar input,
+    .toolbar select {
+      width: 100%;
+      border: 1px solid #dbe8fb;
+      background: #f7fbff;
+      color: var(--navy);
+      border-radius: 15px;
+      padding: 14px 15px;
+      outline: none;
+      font-weight: 800;
+    }
+
+    .toolbar input:focus,
+    .toolbar select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(22,119,255,.10);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .product-card {
+      background: white;
+      border: 1px solid #dceaff;
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 18px 55px rgba(6, 22, 47, .08);
+      transition: .25s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 80px rgba(22, 119, 255, .16);
+    }
+
+    .product-card.highlight {
+      outline: 4px solid rgba(32, 215, 255, .45);
+      box-shadow: 0 30px 90px rgba(32,215,255,.32);
+    }
+
+    .product-media {
+      height: 210px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,.9), transparent 25%),
+        linear-gradient(135deg, #eaf4ff, #d7f6ff);
+      font-size: 72px;
+      position: relative;
+    }
+
+    .tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 12px;
+      font-weight: 1000;
+      box-shadow: 0 10px 24px rgba(22,119,255,.2);
+    }
+
+    .pin-badge {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: white;
+      color: #e60023;
+      font-weight: 1000;
+      box-shadow: 0 10px 25px rgba(0,0,0,.1);
+    }
+
+    .product-body {
+      padding: 19px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .product-category {
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      font-size: 12px;
+      font-weight: 1000;
+      margin-bottom: 6px;
+    }
+
+    .product-body h3 {
+      font-size: 19px;
+      line-height: 1.18;
+      margin-bottom: 9px;
+    }
+
+    .product-desc {
+      color: #637089;
+      font-size: 14px;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .rating {
+      color: #f4a900;
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: 1000;
+      color: var(--navy);
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #94a3b8;
+      font-size: 14px;
+      margin-left: 4px;
+    }
+
+    .product-actions {
+      display: grid;
+      gap: 10px;
+    }
+
+    .copy-link {
+      border: 1px solid #dbe8fb;
+      background: #f7fbff;
+      color: var(--navy);
+      border-radius: 14px;
+      padding: 11px 13px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .copy-link:hover {
+      background: #eaf4ff;
+    }
+
+    .featured-band {
+      padding: 70px 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(32,215,255,.2), transparent 30%),
+        linear-gradient(135deg, var(--navy), #0b3b83);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .featured-grid h2 {
+      font-size: clamp(31px, 4.5vw, 54px);
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .featured-grid p {
+      color: #c8d8ef;
+      margin-bottom: 23px;
+      font-size: 17px;
+    }
+
+    .promo-panel {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 34px;
+      padding: 30px;
+      box-shadow: 0 25px 80px rgba(0,0,0,.22);
+      display: grid;
+      gap: 16px;
+    }
+
+    .promo-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      background: rgba(255,255,255,.10);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .promo-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: white;
+      color: var(--blue);
+      font-size: 28px;
+      flex: 0 0 auto;
+    }
+
+    .affiliate-box {
+      background: #f7fbff;
+      border: 1px solid #dceaff;
+      border-radius: 28px;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 28px;
+      align-items: center;
+      box-shadow: 0 18px 55px rgba(6,22,47,.08);
+    }
+
+    .affiliate-box img {
+      width: 100%;
+      background: white;
+      border-radius: 22px;
+      padding: 14px;
+      border: 1px solid #e5efff;
+    }
+
+    .affiliate-box h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.08;
+      margin-bottom: 12px;
+    }
+
+    .affiliate-box p {
+      color: #637089;
+      margin-bottom: 14px;
+    }
+
+    .disclosure {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: #fff7d6;
+      border: 1px solid #ffe59a;
+      color: #6b4a00;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 24px;
+    }
+
+    .contact-card,
+    .message-card {
+      background: white;
+      border: 1px solid #dceaff;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 18px 55px rgba(6,22,47,.08);
+    }
+
+    .contact-card h3,
+    .message-card h3 {
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px solid #e8f0fb;
+    }
+
+    .contact-item:last-child {
+      border-bottom: none;
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: white;
+      font-size: 20px;
+      flex: 0 0 auto;
+    }
+
+    .contact-item strong {
+      display: block;
+      color: var(--navy);
+    }
+
+    .contact-item span,
+    .contact-item a {
+      color: #637089;
+      font-weight: 700;
+    }
+
+    .message-card form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .message-card input,
+    .message-card textarea {
+      border: 1px solid #dbe8fb;
+      background: #f7fbff;
+      border-radius: 15px;
+      padding: 14px 15px;
+      outline: none;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .message-card textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    footer {
+      background: #041020;
+      color: white;
+      padding: 45px 0 24px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr .75fr 1fr;
+      gap: 25px;
+      margin-bottom: 28px;
+    }
+
+    footer img {
+      max-width: 190px;
+      background: white;
+      border-radius: 16px;
+      padding: 8px;
+      margin-bottom: 12px;
+    }
+
+    footer h3 {
+      margin-bottom: 14px;
+    }
+
+    footer p,
+    footer a {
+      color: rgba(255,255,255,.72);
+      font-size: 14px;
+      margin-bottom: 9px;
+      display: block;
+    }
+
+    footer a:hover {
+      color: var(--cyan);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.12);
+      padding-top: 18px;
+      color: rgba(255,255,255,.6);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .pinterest-banner {
+      display: none;
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 18px;
+      width: min(720px, 92%);
+      z-index: 3000;
+      background: white;
+      color: var(--navy);
+      border: 1px solid #dceaff;
+      border-radius: 22px;
+      box-shadow: 0 22px 70px rgba(0,0,0,.22);
+      padding: 15px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .pinterest-banner.show {
+      display: flex;
+    }
+
+    .pinterest-banner strong {
+      display: block;
+    }
+
+    .pinterest-banner span {
+      color: #637089;
+      font-size: 14px;
+    }
+
+    .toast {
+      position: fixed;
+      top: 96px;
+      right: 22px;
+      background: var(--navy);
+      color: white;
+      padding: 13px 18px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      transform: translateX(140%);
+      opacity: 0;
+      transition: .28s;
+      z-index: 3500;
+      font-weight: 900;
+      max-width: 92vw;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .featured-grid,
+      .affiliate-box,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-grid,
+      .how-grid,
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        position: fixed;
+        top: 122px;
+        left: -100%;
+        width: min(330px, 86%);
+        height: calc(100vh - 122px);
+        background: #06111f;
+        border-right: 1px solid var(--border);
+        padding: 28px;
+        transition: .3s;
+      }
+
+      nav.open {
+        left: 0;
+      }
+
+      nav ul {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .brand img {
+        width: 160px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .navbar {
+        height: 76px;
+      }
+
+      .brand img {
+        width: 138px;
+      }
+
+      .nav-actions .btn {
+        display: none;
+      }
+
+      .hero {
+        padding: 54px 0 80px;
+      }
+
+      .hero-visual {
+        min-height: auto;
+      }
+
+      .phone-mockup {
+        width: 205px;
+        height: 330px;
+      }
+
+      .trust-row,
+      .product-grid,
+      .how-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .floating-chip {
+        display: none;
+      }
+
+      .pinterest-banner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-strip">
+    Pinterest visitors: Click any product and continue to AliExpress through TheWStore.
+  </div>
+
+  <header>
+    <div class="container navbar">
+      <a class="brand" href="#home" aria-label="TheWStore Home">
+        <img src="logo-wide.png" alt="TheWStore logo" />
+      </a>
+
+      <nav id="navMenu">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#products">Affiliate Picks</a></li>
+          <li><a href="#pinterest">Pinterest Funnel</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn btn-primary" href="#products">Shop Picks</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge">📌 Pinterest to AliExpress Affiliate Store</div>
+          <h1>Smart Product Finds From <span>TheWStore</span></h1>
+          <p>
+            Discover trending accessories, gadgets, smart home items, and daily-use products.
+            TheWStore helps Pinterest shoppers reach the right AliExpress products quickly
+            through a clean affiliate shopping page.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#products">Explore Products</a>
+            <a class="btn btn-soft" href="#pinterest">How Pinterest Links Work</a>
+          </div>
+
+          <div class="trust-row">
+            <div class="trust-pill">
+              <strong>01</strong>
+              Pinterest Pin
+            </div>
+            <div class="trust-pill">
+              <strong>02</strong>
+              TheWStore Page
+            </div>
+            <div class="trust-pill">
+              <strong>03</strong>
+              AliExpress Product
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-logo-card">
+            <img src="logo-wide.png" alt="TheWStore affiliate marketing logo" />
+          </div>
+
+          <div class="floating-chip chip-1">📌 Pin Traffic</div>
+          <div class="floating-chip chip-2">🛒 AliExpress Deals</div>
+          <div class="floating-chip chip-3">🔗 Affiliate Links</div>
+
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <div class="pin-card-small">
+                <div class="img">🎧</div>
+                <strong>Wireless Earbuds</strong>
+                <small>From Pinterest to AliExpress</small>
+              </div>
+              <div class="pin-card-small">
+                <div class="img">⌚</div>
+                <strong>Smart Watch</strong>
+                <small>Trending product pick</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-light" id="how">
+      <div class="container">
+        <div class="section-title">
+          <div class="mini">Simple Affiliate Flow</div>
+          <h2>How customers move from Pinterest to AliExpress</h2>
+          <p>
+            This website is designed as a bridge between your Pinterest pins and your AliExpress affiliate products.
+          </p>
+        </div>
+
+        <div class="how-grid">
+          <div class="how-card">
+            <div class="step-num">1</div>
+            <h3>Customer sees your Pin</h3>
+            <p>You upload product pins on Pinterest with your website link instead of sending visitors directly away.</p>
+          </div>
+
+          <div class="how-card">
+            <div class="step-num">2</div>
+            <h3>Visitor opens TheWStore</h3>
+            <p>The product page explains the item, builds trust, and gives a clear button to view the product.</p>
+          </div>
+
+          <div class="how-card">
+            <div class="step-num">3</div>
+            <h3>AliExpress product opens</h3>
+            <p>When the visitor clicks the product button, they go to AliExpress through your affiliate link.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-light" id="products">
+      <div class="container">
+        <div class="section-title">
+          <div class="mini">Affiliate Product Picks</div>
+          <h2>Trending products for Pinterest shoppers</h2>
+          <p>
+            Replace the sample AliExpress links in the code with your own affiliate links.
+            Each Pinterest pin can target a specific product on this page.
+          </p>
+        </div>
+
+        <div class="toolbar">
+          <input type="text" id="searchInput" placeholder="Search products..." />
+
+          <select id="categoryFilter">
+            <option value="all">All Categories</option>
+            <option value="Tech Accessories">Tech Accessories</option>
+            <option value="Smart Gadgets">Smart Gadgets</option>
+            <option value="Home Essentials">Home Essentials</option>
+            <option value="Beauty Tools">Beauty Tools</option>
+            <option value="Travel Items">Travel Items</option>
+          </select>
+
+          <select id="sortFilter">
+            <option value="default">Sort by Featured</option>
+            <option value="low-high">Price: Low to High</option>
+            <option value="high-low">Price: High to Low</option>
+            <option value="rating">Best Rated</option>
+          </select>
+        </div>
+
+        <div class="product-grid" id="productGrid"></div>
+      </div>
+    </section>
+
+    <section class="featured-band">
+      <div class="container featured-grid">
+        <div>
+          <h2>Built for affiliate clicks, not just design.</h2>
+          <p>
+            This website uses product cards, Pinterest-friendly landing links, search filters,
+            direct AliExpress buttons, and clear contact details to make your affiliate marketing look professional.
+          </p>
+          <a class="btn btn-primary" href="#products">View Product Picks</a>
+        </div>
+
+        <div class="promo-panel">
+          <div class="promo-row">
+            <div class="promo-icon">📌</div>
+            <div>
+              <strong>Pinterest-ready landing pages</strong>
+              <p>Use links like ?product=wireless-earbuds in your Pinterest pins.</p>
+            </div>
+          </div>
+
+          <div class="promo-row">
+            <div class="promo-icon">🔗</div>
+            <div>
+              <strong>AliExpress affiliate buttons</strong>
+              <p>Every product has a button that opens your affiliate product URL.</p>
+            </div>
+          </div>
+
+          <div class="promo-row">
+            <div class="promo-icon">💎</div>
+            <div>
+              <strong>Premium blue brand theme</strong>
+              <p>Modern design with your uploaded TheWStore logo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-light" id="pinterest">
+      <div class="container">
+        <div class="affiliate-box">
+          <img src="logo-icon.png" alt="TheWStore TWS logo icon" />
+
+          <div>
+            <div class="mini" style="color:var(--blue);font-weight:1000;text-transform:uppercase;margin-bottom:8px;">Pinterest Linking Feature</div>
+            <h2>Send each Pinterest pin to the exact product</h2>
+            <p>
+              When you upload a product pin on Pinterest, use your website link with a product slug.
+              Example:
+            </p>
+
+            <div class="disclosure" style="margin-bottom:14px;">
+              https://yourwebsite.com/?product=wireless-earbuds
+            </div>
+
+            <p>
+              The website will automatically scroll to that product and highlight it. Then the visitor can click
+              <strong>View on AliExpress</strong> to open your affiliate link.
+            </p>
+
+            <div class="disclosure">
+              Affiliate disclosure: TheWStore may earn a commission when visitors buy through affiliate links.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-light" id="contact">
+      <div class="container">
+        <div class="section-title">
+          <div class="mini">Contact</div>
+          <h2>Contact TheWStore</h2>
+          <p>For product questions, affiliate inquiries, and business communication.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h3>Business Details</h3>
+
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <strong>Phone</strong>
+                <a href="tel:+923115600839">+92 3115600839</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div>
+                <strong>Email</strong>
+                <a href="mailto:zahidpti6007@gmail.com">zahidpti6007@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <strong>Location</strong>
+                <span>Peshawar, Pakistan</span>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">📌</div>
+              <div>
+                <strong>Pinterest</strong>
+                <span>Add your Pinterest profile link in the code.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="message-card">
+            <h3>Send a Message</h3>
+            <form id="contactForm">
+              <input type="text" id="name" placeholder="Your name" required />
+              <input type="email" id="email" placeholder="Your email" required />
+              <textarea id="message" placeholder="Your message" required></textarea>
+              <button class="btn btn-primary" type="submit">Submit Message</button>
+            </form>
+            <p style="color:#637089;font-size:13px;margin-top:12px;">
+              Note: This form shows a success message only. To receive real messages, connect Formspree, Google Forms, or a backend later.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img src="logo-wide.png" alt="TheWStore logo" />
+          <p>TheWStore is an affiliate marketing website for Pinterest shoppers and AliExpress product recommendations.</p>
+        </div>
+
+        <div>
+          <h3>Explore</h3>
+          <a href="#home">Home</a>
+          <a href="#how">How It Works</a>
+          <a href="#products">Products</a>
+          <a href="#pinterest">Pinterest Funnel</a>
+        </div>
+
+        <div>
+          <h3>Categories</h3>
+          <a href="#products">Tech Accessories</a>
+          <a href="#products">Smart Gadgets</a>
+          <a href="#products">Home Essentials</a>
+          <a href="#products">Travel Items</a>
+        </div>
+
+        <div>
+          <h3>Contact</h3>
+          <p>Phone: +92 3115600839</p>
+          <p>Email: zahidpti6007@gmail.com</p>
+          <p>Location: Peshawar, Pakistan</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 TheWStore. Affiliate links may earn commission at no extra cost to the buyer.
+      </div>
+    </div>
+  </footer>
+
+  <div class="pinterest-banner" id="pinterestBanner">
+    <div>
+      <strong>Welcome from Pinterest 👋</strong>
+      <span>Choose a product below and continue to AliExpress through TheWStore.</span>
+    </div>
+    <button class="btn btn-dark" id="closePinterestBanner">Got it</button>
+  </div>
+
+  <div class="toast" id="toast">Copied</div>
+
+  <script>
+    /*
+      HOW TO ADD YOUR REAL ALIEXPRESS AFFILIATE LINKS:
+      1. Find the products array below.
+      2. Replace each affiliateUrl value with your own AliExpress affiliate product link.
+      3. Use each product slug in Pinterest links, for example:
+         https://yourwebsite.com/?product=wireless-earbuds
+    */
+
+    const products = [
+      {
+        id: 1,
+        slug: "wireless-earbuds",
+        name: "Wireless Bluetooth Earbuds",
+        category: "Tech Accessories",
+        price: 9.99,
+        oldPrice: 18.99,
+        rating: 4.8,
+        icon: "🎧",
+        tag: "Best Seller",
+        description: "Compact earbuds for music, calls, travel, and daily use.",
+        affiliateUrl: "https://www.aliexpress.com/wholesale?SearchText=wireless+bluetooth+earbuds"
+      },
+      {
+        id: 2,
+        slug: "fast-charger",
+        name: "Fast USB-C Charger",
+        category: "Tech Accessories",
+        price: 6.49,
+        oldPrice: 12.99,
+        rating: 4.7,
+        icon: "🔌",
+        tag: "Hot Pick",
+        description: "Useful fast charger for phones, tablets, and travel bags.",
+        affiliateUrl: "https://www.aliexpress.com/wholesale?SearchText=usb+c+fast+charger"
+      },
+      {
+        id: 3,
+        slug: "smart-watch",
+        name: "Smart Fitness Watch",
+        category: "Smart Gadgets",
+        price: 14.99,
+        oldPrice: 27.99,
+        rating: 4.9,
+        icon: "⌚",
+        tag: "Trending",
+        description: "A stylish smartwatch for fitness tracking and daily alerts.",
+        affiliateUrl: "https://www.aliexpress.com/wholesale?SearchText=smart+fitness+watch"
+      },
+      {
+        id: 4,
+        slug: "led-strip-lights",
+        name: "RGB LED Strip Lights",
+        category: "Home Essentials",
+        price: 7.99,
+        oldPrice: 15.99,
+        rating: 4.6,
+        icon: "💡",
+        tag: "Room Decor",
+        description: "Colorful LED lights for bedrooms, gaming setups, and decoration.",
+        affiliateUrl: "https://www.aliexpress.com/wholesale?SearchText=rgb+led+strip+lights"
+      },
+      {
+        id: 5,
+        slug: "mini-tripod",
+        name: "Portable Mini Tripod",
+        category: "Tech Accessories",
+        price: 5.99,
+        oldPrice: 10.99,
+        rating: 4.5,
+        icon: "📸",
+        tag: "For Creators",
+        description: "Great for content creators, product photos, and mobile videos.",
+        affiliateUrl: "https://www.aliexpress.com/wholesale?SearchText=portable+mini+tripod"
+      },
+      {
+        id: 6,
+        slug: "beauty-facial-tool",
+        name: "Facial Beauty Tool",
+        category: "Beauty Tools",
+        price: 8.99,
+        oldPrice: 17.99,
+        rating: 4.6,
+        icon: "✨",
+        tag: "Beauty",
+        description: "A popular beauty accessory for skincare and daily routine pins.",
+        affiliateUrl: "https://www.aliexpress.com/wholesale?SearchText=facial+beauty+tool"
+      },
+      {
+        id: 7,
+        slug: "travel-organizer",
+        name: "Travel Cable Organizer",
+        category: "Travel Items",
+        price: 4.99,
+        oldPrice: 9.99,
+        rating: 4.7,
+        icon: "🧳",
+        tag: "Travel",
+        description: "Organize chargers, cables, earbuds, and small accessories.",
+        affiliateUrl: "https://www.aliexpress.com/wholesale?SearchText=travel+cable+organizer"
+      },
+      {
+        id: 8,
+        slug: "phone-stand",
+        name: "Adjustable Phone Stand",
+        category: "Tech Accessories",
+        price: 3.99,
+        oldPrice: 8.99,
+        rating: 4.8,
+        icon: "📱",
+        tag: "Useful",
+        description: "Simple desk stand for phones, video calls, and watching content.",
+        affiliateUrl: "https://www.aliexpress.com/wholesale?SearchText=adjustable+phone+stand"
+      }
+    ];
+
+    const productGrid = document.getElementById("productGrid");
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const sortFilter = document.getElementById("sortFilter");
+    const menuBtn = document.getElementById("menuBtn");
+    const navMenu = document.getElementById("navMenu");
+    const toast = document.getElementById("toast");
+    const pinterestBanner = document.getElementById("pinterestBanner");
+    const closePinterestBanner = document.getElementById("closePinterestBanner");
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedProduct = params.get("product");
+    const cameFromPinterest =
+      document.referrer.toLowerCase().includes("pinterest") ||
+      params.get("source") === "pinterest" ||
+      params.get("utm_source") === "pinterest";
+
+    function money(value) {
+      return "$" + value.toFixed(2);
+    }
+
+    function renderProducts() {
+      let list = [...products];
+
+      const search = searchInput.value.toLowerCase().trim();
+      const category = categoryFilter.value;
+      const sort = sortFilter.value;
+
+      if (search) {
+        list = list.filter(product =>
+          product.name.toLowerCase().includes(search) ||
+          product.category.toLowerCase().includes(search) ||
+          product.description.toLowerCase().includes(search)
+        );
+      }
+
+      if (category !== "all") {
+        list = list.filter(product => product.category === category);
+      }
+
+      if (sort === "low-high") {
+        list.sort((a, b) => a.price - b.price);
+      } else if (sort === "high-low") {
+        list.sort((a, b) => b.price - a.price);
+      } else if (sort === "rating") {
+        list.sort((a, b) => b.rating - a.rating);
+      }
+
+      productGrid.innerHTML = "";
+
+      if (list.length === 0) {
+        productGrid.innerHTML = `
+          <div style="grid-column:1/-1;background:white;border:1px solid #dceaff;border-radius:24px;padding:35px;text-align:center;">
+            <h3>No products found</h3>
+            <p style="color:#637089;">Try another search or category.</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.forEach(product => {
+        const card = document.createElement("article");
+        card.className = "product-card";
+        card.id = "product-" + product.slug;
+
+        if (requestedProduct === product.slug) {
+          card.classList.add("highlight");
+        }
+
+        card.innerHTML = `
+          <div class="product-media">
+            <span class="tag">${product.tag}</span>
+            <span class="pin-badge">P</span>
+            ${product.icon}
+          </div>
+
+          <div class="product-body">
+            <div class="product-category">${product.category}</div>
+            <h3>${product.name}</h3>
+            <p class="product-desc">${product.description}</p>
+            <div class="rating">★ ${product.rating} / 5</div>
+
+            <div class="price-row">
+              <div>
+                <span class="price">${money(product.price)}</span>
+                <span class="old-price">${money(product.oldPrice)}</span>
+              </div>
+            </div>
+
+            <div class="product-actions">
+              <a class="btn btn-primary" href="${product.affiliateUrl}" target="_blank" rel="nofollow sponsored noopener">
+                View on AliExpress →
+              </a>
+              <button class="copy-link" onclick="copyPinterestLink('${product.slug}')">
+                Copy Pinterest Landing Link
+              </button>
+            </div>
+          </div>
+        `;
+
+        productGrid.appendChild(card);
+      });
+    }
+
+    function copyPinterestLink(slug) {
+      const cleanUrl = window.location.origin + window.location.pathname + "?product=" + slug + "&utm_source=pinterest";
+      navigator.clipboard.writeText(cleanUrl).then(() => {
+        showToast("Pinterest product link copied");
+      }).catch(() => {
+        showToast(cleanUrl);
+      });
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2300);
+    }
+
+    function scrollToRequestedProduct() {
+      if (!requestedProduct) return;
+
+      const product = document.getElementById("product-" + requestedProduct);
+      if (product) {
+        setTimeout(() => {
+          product.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 500);
+      }
+    }
+
+    searchInput.addEventListener("input", renderProducts);
+    categoryFilter.addEventListener("change", renderProducts);
+    sortFilter.addEventListener("change", renderProducts);
+
+    menuBtn.addEventListener("click", () => {
+      navMenu.classList.toggle("open");
+    });
+
+    document.querySelectorAll("nav a").forEach(link => {
+      link.addEventListener("click", () => navMenu.classList.remove("open"));
+    });
+
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      showToast("Message submitted successfully");
+      this.reset();
+    });
+
+    closePinterestBanner.addEventListener("click", () => {
+      pinterestBanner.classList.remove("show");
+    });
+
+    if (cameFromPinterest || requestedProduct) {
+      pinterestBanner.classList.add("show");
+    }
+
+    renderProducts();
+    scrollToRequestedProduct();
+  </script>
+</body>
+</html>
