@@ -506,7 +506,11 @@
       box-shadow: 0 30px 90px rgba(32,215,255,.32);
     }
 
-    .product-media {
+    .product-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
       height: 210px;
       display: grid;
       place-items: center;
@@ -1337,18 +1341,19 @@
 
     const products = [
       {
-        id: 1,
-        slug: "wireless-earbuds",
-        name: "Wireless Bluetooth Earbuds",
-        category: "Tech Accessories",
-        price: 9.99,
-        oldPrice: 18.99,
-        rating: 4.8,
-        icon: "🎧",
-        tag: "Best Seller",
-        description: "Compact earbuds for music, calls, travel, and daily use.",
-        affiliateUrl: "https://www.aliexpress.com/wholesale?SearchText=wireless+bluetooth+earbuds"
-      },
+  id: 9,
+  slug: "monster-mqt52-earbuds",
+  name: "Monster MQT52 Wireless Bluetooth Earbuds",
+  category: "Tech Accessories",
+  price: 12.99,
+  oldPrice: 24.99,
+  rating: 4.8,
+  image: "monster-mqt52-earbuds.jpg",
+  icon: "🎧",
+  tag: "Hot Deal",
+  description: "Monster MQT52 wireless earbuds with ENC noise cancellation, Bluetooth 5.4, Hi-Fi sound, and comfortable design.",
+  affiliateUrl: "https://s.click.aliexpress.com/e/_c4190ZS9"
+},
       {
         id: 2,
         slug: "fast-charger",
@@ -1515,7 +1520,7 @@
           <div class="product-media">
             <span class="tag">${product.tag}</span>
             <span class="pin-badge">P</span>
-            ${product.icon}
+            ${product.image ? `<img src="${product.image}" alt="${product.name}" class="product-photo">` : product.icon}
           </div>
 
           <div class="product-body">
